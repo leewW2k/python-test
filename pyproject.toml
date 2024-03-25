@@ -1,0 +1,38 @@
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    envlist =
+        py311
+    skipsdist = True
+
+    [testenv]
+    deps =
+        -r requirements.txt
+    commands =
+        coverage run -m pytest -v -s --html=report.html tests/
+        coverage report
+        mypy src
+
+    [testenv:type]
+    deps = mypy
+    commands = mypy src
+"""
+
+[tool.coverage.run]
+relative_files = true
+source = ["src/syn_service"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
+skip_empty = true
+
+#[testenv.docs]
+#description = "invoke sphinx-build to build the HTML docs"
+#basepython = "python3.11"
+#allowlist_externals = ["sphinx-build"]
+#commands = [
+#    "sphinx-build -M html ./docs ./docs/_build -W --keep-going",
+#    "python -c 'import pathlib; print(\"Documentation available at file://\{0\}\".format(pathlib.Path.cwd() / \"docs\" / \"_build\" / \"html\" / \"index.html\"))"
+#]

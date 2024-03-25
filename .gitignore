@@ -1,0 +1,8 @@
+.pytest_cache
+.coverage
+.tox
+.mypy_cache
+report.html
+
+venv
+.idea
