@@ -1,6 +1,10 @@
 default:
   image: python:3.11-alpine
 
+stages:
+  -test
+  -build
+
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
 variables:
@@ -17,12 +21,14 @@ before_script:
   - virtualenv venv
   - source venv/bin/activate
 
-test:
+run_tests:
+  stage: test
   script:
     - pip install tox  # you can also use tox
     - tox
 
 build_image:
+  stage: build
   image: docker:26.0.0
   services:
     - docker:26.0.0-dind
