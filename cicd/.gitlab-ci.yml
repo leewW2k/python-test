@@ -21,11 +21,3 @@ test:
   script:
     - pip install tox  # you can also use tox
     - tox
-
-run:
-  script:
-    - pip install .
-    # run the command here
-  artifacts:
-    paths:
-      - build/*
