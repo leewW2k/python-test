@@ -50,7 +50,7 @@ deploy:
     - chmod 400 $DIGITAL_OCEAN_SSH
   script:
     - ssh -o StrictHostKeyChecking=no -i $DIGITAL_OCEAN_SSH root@128.199.123.104
-      "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $IMAGE_NAME &&
-      docker pull $IMAGE_TAG &&
+      "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD &&
+      docker pull $IMAGE_NAME:$IMAGE_TAG &&
       docker container rm -f my-app || true &&
-      docker run -d -p 5000:5000 --name my-app $IMAGE_TAG"
+      docker run -d -p 5000:5000 --name my-app $IMAGE_NAME:$IMAGE_TAG"
