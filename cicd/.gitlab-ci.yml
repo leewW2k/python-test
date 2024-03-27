@@ -45,6 +45,7 @@ build_image:
 
 deploy:
   stage: deploy
+  image: ruby:3.3.0
   before_script:
     - chmod 400 $DIGITAL_OCEAN_SSH
   script:
