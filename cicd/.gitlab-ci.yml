@@ -10,6 +10,8 @@ stages:
 # only cache local items.
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  IMAGE_NAME: leewx/syn-template
+  IMAGE_TAG: syn-template-1.0
 
 # https://pip.pypa.io/en/stable/topics/caching/
 cache:
@@ -33,9 +35,7 @@ build_image:
   image: docker:26.0.0
   services:
     - docker:26.0.0-dind
-  variables:
-    IMAGE_NAME: leewx/syn-template
-    IMAGE_TAG: syn-template-1.0
+  variables: 
     DOCKER_TLS_CERTDIR: "/certs"
   before_script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD 
