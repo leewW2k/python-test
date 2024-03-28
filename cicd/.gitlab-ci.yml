@@ -12,8 +12,6 @@ variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   IMAGE_NAME: leewx/syn-template
   IMAGE_TAG: syn-template-1.0
-  IMAGE_NAME_DOCS: leewx/syn-template-docs
-  IMAGE_TAG_DOCS: syn-template-docs-1.0
 
 # https://pip.pypa.io/en/stable/topics/caching/
 cache:
@@ -44,8 +42,6 @@ build_image:
   script:
     - docker build -t $IMAGE_NAME:$IMAGE_TAG -f cicd/dockerfile/Dockerfile.api .
     - docker push $IMAGE_NAME:$IMAGE_TAG
-    - docker build -t $IMAGE_NAME_DOCS:$IMAGE_TAG_DOCS -f cicd/dockerfile/Dockerfile.docs .
-    - docker push $IMAGE_NAME_DOCS:$IMAGE_TAG_DOCS
 
 deploy:
   stage: deploy
