@@ -23,6 +23,7 @@ legacy_tox_ini = """
     deps =
         -r requirements.txt
     commands =
+        cd docs
         sphinx-apidoc -e -f -o source/ ../src
         make html
 
