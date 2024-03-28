@@ -12,6 +12,8 @@ variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   IMAGE_NAME: leewx/syn-template
   IMAGE_TAG: syn-template-1.0
+  IMAGE_NAME_DOCS: leewx/syn-template-docs
+  IMAGE_TAG_DOCS: syn-template-docs-1.0
 
 # https://pip.pypa.io/en/stable/topics/caching/
 cache:
@@ -28,7 +30,7 @@ run_tests:
   stage: test
   script:
     - pip install tox  # you can also use tox
-    - tox -p
+    - tox
 
 build_image:
   stage: build
@@ -42,6 +44,8 @@ build_image:
   script:
     - docker build -t $IMAGE_NAME:$IMAGE_TAG -f cicd/dockerfile/Dockerfile.api .
     - docker push $IMAGE_NAME:$IMAGE_TAG
+    - docker build -t $IMAGE_NAME_DOCS:$IMAGE_TAG_DOCS -f cicd/dockerfile/Dockerfile.docs .
+    - docker push $IMAGE_NAME_DOCS:$IMAGE_TAG_DOCS
 
 deploy:
   stage: deploy
@@ -53,4 +57,7 @@ deploy:
       "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD &&
       docker pull $IMAGE_NAME:$IMAGE_TAG &&
       docker container rm -f my-app || true &&
-      docker run -d -p 5000:5000 --name my-app $IMAGE_NAME:$IMAGE_TAG"
+      docker run -d -p 5000:5000 --name my-app $IMAGE_NAME:$IMAGE_TAG &&
+      docker pull $IMAGE_NAME_DOCS:$IMAGE_TAG_DOCS &&
+      docker container rm -f my-docs || true &&
+      docker run -d -p 5050:5050 --name my-docs $IMAGE_NAME_DOCS:$IMAGE_TAG_DOCS"
