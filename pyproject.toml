@@ -3,6 +3,8 @@ legacy_tox_ini = """
     [tox]
     envlist =
         py311
+        docs
+        lint
     skipsdist = True
 
     [testenv]
@@ -16,6 +18,19 @@ legacy_tox_ini = """
     [testenv:type]
     deps = mypy
     commands = mypy src
+
+    [docs]
+    deps =
+        -r requirements.txt
+    commands =
+        sphinx-apidoc -e -f -o source/ ../src
+        make html
+
+    [lint]
+    deps =
+        flake8
+    commands =
+        flake8 src
 """
 
 [tool.coverage.run]
@@ -28,11 +43,5 @@ fail_under = 100
 show_missing = true
 skip_empty = true
 
-#[testenv.docs]
-#description = "invoke sphinx-build to build the HTML docs"
-#basepython = "python3.11"
-#allowlist_externals = ["sphinx-build"]
-#commands = [
-#    "sphinx-build -M html ./docs ./docs/_build -W --keep-going",
-#    "python -c 'import pathlib; print(\"Documentation available at file://\{0\}\".format(pathlib.Path.cwd() / \"docs\" / \"_build\" / \"html\" / \"index.html\"))"
-#]
+[tool.flake8]
+max-line-length = 100

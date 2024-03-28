@@ -28,7 +28,7 @@ run_tests:
   stage: test
   script:
     - pip install tox  # you can also use tox
-    - tox
+    - tox -p
 
 build_image:
   stage: build
