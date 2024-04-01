@@ -20,9 +20,9 @@ phases:
 reports:
   coverage:
     files:
-      - "coverage/*"
+      - "coverage.xml"
     base-directory: 'test-reports'
-    discard-paths: yes
+    file-format: COBERTURAXML
   report:
     files:
       - 'junit.xml'

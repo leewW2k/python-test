@@ -15,7 +15,7 @@ legacy_tox_ini = """
         -s \
         -v \
         --cov=src \
-        --cov-report=html:test-reports/coverage \
+        --cov-report=xml:test-reports/coverage.xml \
         --junitxml=test-reports/junit.xml \
         --log-file=test-reports/logs.txt \
         tests
