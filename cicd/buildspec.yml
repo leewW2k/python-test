@@ -24,21 +24,21 @@ phases:
         --junitxml=test-reports/junit.xml
         --log-file=test-reports/logs.txt
         tests
-    post_build:
-      commands:
-        - echo Build completed on `date`
+  post_build:
+    commands:
+      - echo Build completed on `date`
 
-  reports:
-    coverage:
-      files:
-        - "coverage/*"
-      base-directory: 'test-reports'
-      discard-paths: yes
-    report:
-      files:
-        - 'junit.xml'
-        - 'report.html'
-        - 'assets/*'
-      base-directory: 'test-reports'
-      discard-paths: yes
-      file-format: JunitXml
+reports:
+  coverage:
+    files:
+      - "coverage/*"
+    base-directory: 'test-reports'
+    discard-paths: yes
+  report:
+    files:
+      - 'junit.xml'
+      - 'report.html'
+      - 'assets/*'
+    base-directory: 'test-reports'
+    discard-paths: yes
+    file-format: JunitXml
