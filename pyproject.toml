@@ -10,26 +10,29 @@ legacy_tox_ini = """
     [testenv]
     deps =
         -r requirements.txt
-    commands =
-        coverage run -m pytest -v -s --html=report.html tests/
-        coverage report
-        mypy src
 
-    [testenv:type]
-    deps = mypy
-    commands = mypy src
+    [py311]
+    commands =
+        mkdir test-reports
+        pytest
+        --html=test-reports/report.html
+        --self-contained-html
+        -s
+        -v
+        --cov=dspt
+        --cov-report=html:test-reports/coverage
+        --junitxml=test-reports/junit.xml
+        --log-file=test-reports/logs.txt
+        tests
 
     [docs]
-    deps =
-        -r requirements.txt
     commands =
         cd docs
         sphinx-apidoc -e -f -o source/ ../src
         make html
 
     [lint]
-    deps =
-        flake8
+    deps = flake8
     commands =
         flake8 src
 """

@@ -1,0 +1,27 @@
+version: 0.1
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+  build:
+    commands:
+      - tox
+  post_build:
+    commands:
+      - echo Build completed on `date`
+
+reports:
+  coverage:
+    files:
+      - "coverage/*"
+    base-directory: 'test-reports'
+    discard-paths: yes
+  report:
+    files:
+      - 'junit.xml'
+      - 'report.html'
+      - 'assets/*'
+    base-directory: 'test-reports'
+    discard-paths: yes
+    file-format: JunitXml
