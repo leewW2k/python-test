@@ -18,11 +18,16 @@ phases:
       - echo Build completed on `date`
 
 reports:
-  unit_tests:
-    files:
-      - unittests.xml
-    file-format: JUNITXML
   coverage_tests:
     files:
-      - coverage.xml
+      - 'coverage.xml'
+    base-directory: 'test-reports'
     file-format: COBERTURAXML
+  tests:
+    files:
+      - 'junit.xml'
+      - 'report.html'
+      - 'assets/*'
+    base-directory: 'test-reports'
+    discard-paths: yes
+    file-format: JunitXml

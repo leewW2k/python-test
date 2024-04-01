@@ -10,12 +10,15 @@ legacy_tox_ini = """
         -r requirements.txt
     commands =
         pytest \
+        --html=test-reports/report.html \
+        --self-contained-html \
         -s \
         -v \
         --cov=src \
-        --cov-report=xml \
+        --cov-report=test-reports/coverage.xml \
         --cov-branch \
         --junitxml=test-reports/unittests.xml \
+        --log-file=test-reports/logs.txt \
         tests
 """
 
@@ -25,7 +28,7 @@ source = ["src/syn_service"]
 branch = true
 
 [tool.coverage.report]
-fail_under = 0
+fail_under = 100
 show_missing = true
 skip_empty = true
 
