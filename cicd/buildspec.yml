@@ -6,27 +6,39 @@ phases:
       python: 3.11
   pre_build:
     commands:
+      - apt-get install -y python3-venv
+      - python3.11 -m venv test_venv
+      - . test_venv/bin/activate
       - pip install --upgrade pip
       - pip install .
-      - pip install tox
+      - pip install -r tests/requirements.txt
+      - mkdir test-reports
   build:
     commands:
-      - tox
-  post_build:
-    commands:
-      - echo Build completed on `date`
+      - pytest
+        --html=test-reports/report.html
+        --self-contained-html
+        -s
+        -v
+        --cov-report=html:test-reports/coverage
+        --junitxml=test-reports/junit.xml
+        --log-file=test-reports/logs.txt
+        tests
+    post_build:
+      commands:
+        - echo Build completed on `date`
 
-reports:
-  coverage:
-    files:
-      - "coverage/*"
-    base-directory: 'test-reports'
-    discard-paths: yes
-  report:
-    files:
-      - 'junit.xml'
-      - 'report.html'
-      - 'assets/*'
-    base-directory: 'test-reports'
-    discard-paths: yes
-    file-format: JunitXml
+  reports:
+    coverage:
+      files:
+        - "coverage/*"
+      base-directory: 'test-reports'
+      discard-paths: yes
+    report:
+      files:
+        - 'junit.xml'
+        - 'report.html'
+        - 'assets/*'
+      base-directory: 'test-reports'
+      discard-paths: yes
+      file-format: JunitXml
