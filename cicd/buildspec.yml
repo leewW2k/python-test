@@ -23,7 +23,7 @@ reports:
       - 'coverage.xml'
     base-directory: 'test-reports'
     file-format: COBERTURAXML
-  tests:
+  report:
     files:
       - 'junit.xml'
       - 'report.html'
