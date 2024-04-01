@@ -10,7 +10,6 @@ legacy_tox_ini = """
         -r requirements.txt
     commands =
         pytest \
-        --html=test-reports/report.html \
         --self-contained-html \
         -s \
         -v \
@@ -18,7 +17,6 @@ legacy_tox_ini = """
         --cov-report=xml:test-reports/coverage.xml \
         --cov-branch \
         --junitxml=test-reports/junit.xml \
-        --log-file=test-reports/logs.txt \
         tests
 """
 
