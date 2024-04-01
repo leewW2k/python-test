@@ -3,37 +3,22 @@ legacy_tox_ini = """
     [tox]
     envlist =
         py311
-        docs
-        lint
     skipsdist = True
 
-    [testenv]
+    [testenv:py311]
     deps =
         -r requirements.txt
-
-    [py311]
     commands =
-        pytest
-        --html=test-reports/report.html
-        --self-contained-html
-        -s
-        -v
-        --cov=dspt
-        --cov-report=html:test-reports/coverage
-        --junitxml=test-reports/junit.xml
-        --log-file=test-reports/logs.txt
+        pytest \
+        --html=test-reports/report.html \
+        --self-contained-html \
+        -s \
+        -v \
+        --cov=dspt \
+        --cov-report=html:test-reports/coverage \
+        --junitxml=test-reports/junit.xml \
+        --log-file=test-reports/logs.txt \
         tests
-
-    [docs]
-    commands =
-        cd docs
-        sphinx-apidoc -e -f -o source/ ../src
-        make html
-
-    [lint]
-    deps = flake8
-    commands =
-        flake8 src
 """
 
 [tool.coverage.run]
