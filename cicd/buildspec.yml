@@ -6,24 +6,13 @@ phases:
       python: 3.11
   pre_build:
     commands:
-      - apt-get install -y python3-venv
-      - python3.11 -m venv test_venv
-      - . test_venv/bin/activate
       - pip install --upgrade pip
       - pip install .
-      - pip install -r tests/requirements.txt
       - mkdir test-reports
+      - pip install tox
   build:
     commands:
-      - pytest
-        --html=test-reports/report.html
-        --self-contained-html
-        -s
-        -v
-        --cov-report=html:test-reports/coverage
-        --junitxml=test-reports/junit.xml
-        --log-file=test-reports/logs.txt
-        tests
+      - tox
   post_build:
     commands:
       - echo Build completed on `date`
