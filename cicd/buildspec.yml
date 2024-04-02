@@ -15,14 +15,15 @@ phases:
       - tox
   post_build:
     commands:
-      - printenv
-      - aws codecommit post-comment-for-pull-request --pull-request-id $pullRequestId --repository-name $repositoryName --content 'Build Result' --before-commit-id $destinationCommit --after-commit-id $sourceCommit --region $AWS_DEFAULT_REGION
       - |
         if [ $CODEBUILD_BUILD_SUCCEEDING -ne 0 ]; then
+          CODE_COMMENT='BUILD FAILED'
           PR_STATUS='REVOKE'
         else
+          CODE_COMMENT='BUILD SUCCESS'
           PR_STATUS='APPROVE'
         fi
+      - aws codecommit post-comment-for-pull-request --pull-request-id $pullRequestId --repository-name $repositoryName --content '${CODE_COMMENT} - ${CODEBUILD_LOG_PATH}' --before-commit-id $destinationCommit --after-commit-id $sourceCommit --region $AWS_DEFAULT_REGION
       - REVISION_ID=$(aws codecommit get-pull-request --pull-request-id $pullRequestId --region $AWS_DEFAULT_REGION | jq -r '.pullRequest.revisionId')
       - aws codecommit update-pull-request-approval-state --pull-request-id $pullRequestId --revision-id $REVISION_ID --approval-state $PR_STATUS --region $AWS_DEFAULT_REGION
       - echo Build completed on `date`
