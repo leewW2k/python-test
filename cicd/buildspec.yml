@@ -23,7 +23,7 @@ phases:
           CODE_COMMENT='BUILD FAILED'
           PR_STATUS='REVOKE'
         fi
-      - LOG_LINK="https://console.aws.amazon.com/cloudwatch/home?region=${AWS_DEFAULT_REGION}#logStream:group=/aws/codebuild/python-fastapi-template;stream=$CODEBUILD_LOG_PATH"
+      - LOG_LINK="https://console.aws.amazon.com/cloudwatch/home?region=${AWS_DEFAULT_REGION}#logsV2:log-groups/log-group/$252Faws$252Fcodebuild$252Fpython-fastapi-template/log-events/${CODEBUILD_LOG_PATH}"
       - aws codecommit post-comment-for-pull-request --pull-request-id $pullRequestId --repository-name $repositoryName --content "${CODE_COMMENT} - [View Logs]($LOG_LINK)" --before-commit-id $destinationCommit --after-commit-id $sourceCommit --region $AWS_DEFAULT_REGION
       - REVISION_ID=$(aws codecommit get-pull-request --pull-request-id $pullRequestId --region $AWS_DEFAULT_REGION | jq -r '.pullRequest.revisionId')
       - aws codecommit update-pull-request-approval-state --pull-request-id $pullRequestId --revision-id $REVISION_ID --approval-state $PR_STATUS --region $AWS_DEFAULT_REGION
