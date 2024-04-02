@@ -15,6 +15,7 @@ phases:
       - tox
   post_build:
     commands:
+      - printenv
       - echo $PULL_REQUEST_ID
       - echo $DESTINATION_COMMIT_ID
       - echo $SOURCE_COMMIT_ID
