@@ -15,6 +15,16 @@ phases:
       - tox
   post_build:
     commands:
+      - aws codecommit post-comment-for-pull-request --pull-request-id $PULL_REQUEST_ID --repository-name python-fastapi-template --content "Build Failed" --before-commit-id $DESTINATION_COMMIT_ID --after-commit-id $SOURCE_COMMIT_ID --region $AWS_DEFAULT_REGION
+      - |
+        if [ $CODEBUILD_BUILD_SUCCEEDING -ne 0 ]
+        then
+        PR_STATUS='REVOKE'
+        else
+        PR_STATUS='APPROVE'
+        fi
+      - REVISION_ID=$(aws codecommit get-pull-request --pull-request-id $PULL_REQUEST_ID | jq -r '.pullRequest.revisionId')
+      - aws codecommit update-pull-request-approval-state --pull-request-id $PULL_REQUEST_ID --revision-id $REVISION_ID --approval-state $PR_STATUS --region $AWS_DEFAULT_REGION
       - echo Build completed on `date`
 
 reports:
