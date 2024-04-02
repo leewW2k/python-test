@@ -12,7 +12,7 @@ phases:
       - echo log in to Amazon ECR...
       - aws --version
       - echo $AWS_DEFAULT_REGION
-      - $(aws ecr get-login --no-include-email --region ap-southeast-1)
+      - $(aws ecr get-login-password --no-include-email --region ap-southeast-1)
       - REPOSITORY_URI=178175833710.dkr.ecr.ap-southeast-1.amazonaws.com/python-template-docker
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
