@@ -23,7 +23,7 @@ phases:
           CODE_COMMENT='BUILD SUCCESS'
           PR_STATUS='APPROVE'
         fi
-      - aws codecommit post-comment-for-pull-request --pull-request-id $pullRequestId --repository-name $repositoryName --content '${CODE_COMMENT} - ${CODEBUILD_LOG_PATH}' --before-commit-id $destinationCommit --after-commit-id $sourceCommit --region $AWS_DEFAULT_REGION
+      - aws codecommit post-comment-for-pull-request --pull-request-id $pullRequestId --repository-name $repositoryName --content "${CODE_COMMENT} - ${CODEBUILD_LOG_PATH}" --before-commit-id $destinationCommit --after-commit-id $sourceCommit --region $AWS_DEFAULT_REGION
       - REVISION_ID=$(aws codecommit get-pull-request --pull-request-id $pullRequestId --region $AWS_DEFAULT_REGION | jq -r '.pullRequest.revisionId')
       - aws codecommit update-pull-request-approval-state --pull-request-id $pullRequestId --revision-id $REVISION_ID --approval-state $PR_STATUS --region $AWS_DEFAULT_REGION
       - echo Build completed on `date`
