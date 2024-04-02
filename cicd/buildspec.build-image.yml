@@ -11,8 +11,9 @@ phases:
     commands:
       - echo log in to Amazon ECR...
       - aws --version
-      - echo $AWS_DEFAULT_REGION
-      - $(aws ecr get-login-password --region ap-southeast-1)
+      - ECR_PASSWORD=$(aws ecr get-login-password --region $AWS_DEFAULT_REGION)
+      - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
+      - echo -n ${ECR_PASSWORD} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
       - REPOSITORY_URI=178175833710.dkr.ecr.ap-southeast-1.amazonaws.com/python-template-docker
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
