@@ -15,8 +15,10 @@ phases:
       - tox
   post_build:
     commands:
+      - echo $pullRequestId
       - |
         if [ -n $pullRequestId ]; then
+          |
           if [ $CODEBUILD_BUILD_SUCCEEDING -ne 0 ]; then
             CODE_COMMENT='BUILD SUCCESS'
             PR_STATUS='APPROVE'
