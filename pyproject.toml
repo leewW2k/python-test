@@ -16,7 +16,7 @@ legacy_tox_ini = """
         --cov=src \
         --cov-report=xml:test-reports/coverage.xml \
         --cov-branch \
-        --cov-fail-under=0 \
+        --cov-fail-under=50 \
         --junitxml=test-reports/junit.xml \
         tests
 """
