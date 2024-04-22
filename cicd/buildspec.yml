@@ -31,10 +31,12 @@ phases:
           aws codecommit update-pull-request-approval-state --pull-request-id $pullRequestId --revision-id $REVISION_ID --approval-state $PR_STATUS --region $AWS_DEFAULT_REGION
         fi
       - echo Build completed on `date`
-  artifacts:
-    files:
-      - '**/*'
-    base-directory: 'docs/build/html'
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'docs/build/html'
+  name: "syncpos-template-documentation"
 
 reports:
   coverage_tests:
