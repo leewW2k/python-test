@@ -10,6 +10,7 @@ phases:
       - pip install .
       - mkdir test-reports
       - pip install tox
+      - cd docs
   build:
     commands:
       - tox
