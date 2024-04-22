@@ -3,6 +3,7 @@ legacy_tox_ini = """
     [tox]
     envlist =
         py311
+        documentation
     skipsdist = True
 
     [testenv:py311]
@@ -19,6 +20,15 @@ legacy_tox_ini = """
         --cov-fail-under=50 \
         --junitxml=test-reports/junit.xml \
         tests
+
+    [testenv:documentation]
+    basepython = python3
+    skip_install = true
+    allowlist_externals = make
+    changedir = docs
+    commands =
+        make html
+
 """
 
 [tool.coverage.run]

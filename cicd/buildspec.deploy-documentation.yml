@@ -34,7 +34,8 @@ phases:
   artifacts:
     files:
       - '**/*'
-    base-directory: 'docs/build/html'
+    base-directory: "docs/build/html/"
+    name: "syncpos-template-documentation"
 
 reports:
   coverage_tests:
