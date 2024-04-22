@@ -32,6 +32,7 @@ phases:
           aws codecommit update-pull-request-approval-state --pull-request-id $pullRequestId --revision-id $REVISION_ID --approval-state $PR_STATUS --region $AWS_DEFAULT_REGION
         fi
       - echo Build completed on `date`
+      - aws s3 rm s3://syncpos-template-documentation/ --recursive
       - aws s3 cp ./build/html/ s3://syncpos-template-documentation/ --recursive
 
 reports:
