@@ -26,6 +26,7 @@ legacy_tox_ini = """
     skip_install = true
     allowlist_externals = make
     changedir = docs
+    deps = sphinx
     commands =
         make html
 
