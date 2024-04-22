@@ -6,9 +6,11 @@ legacy_tox_ini = """
         documentation
     skipsdist = True
 
-    [testenv:py311]
+    [testenv]
     deps =
         -r requirements.txt
+
+    [testenv:py311]
     commands =
         pytest \
         --self-contained-html \
@@ -26,9 +28,6 @@ legacy_tox_ini = """
     skip_install = true
     allowlist_externals = make
     changedir = docs
-    deps =
-        sphinx
-        sphinx-rtd-theme
     commands =
         make html
 
